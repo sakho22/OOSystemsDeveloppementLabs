@@ -1,4 +1,4 @@
-package com.example.CarRental;
+package com.example.CarRental.web;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
