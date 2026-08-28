@@ -4,11 +4,14 @@ public class Car {
     private String plateNumber;
     private String brand;
     private double price;
+    private boolean isRented;
 
     public Car(String plateNumber, String brand, double price) {
         this.plateNumber = plateNumber;
         this.brand = brand;
         this.price = price;
+        this.isRented = false;
+
     }
 
     public String getPlateNumber() {
@@ -21,5 +24,13 @@ public class Car {
 
     public double getPrice() {
         return price;
+    }
+
+    public boolean getIsRented() {
+        return isRented;
+    }
+
+    public void setIsRented(boolean isRented) {
+        this.isRented = isRented;
     }
 }

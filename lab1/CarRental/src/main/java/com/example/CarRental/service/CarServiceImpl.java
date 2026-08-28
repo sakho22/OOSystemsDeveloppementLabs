@@ -1,6 +1,7 @@
 package com.example.CarRental.service;
 
 import com.example.CarRental.data.*;
+import com.example.CarRental.exception.CarNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +21,21 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getCars() {
         return cars;
+    }
+
+    @Override
+    public Car getCarByPlateNumber(String plateNumber) {
+        for (Car car : cars) {
+            if (car.getPlateNumber().equals(plateNumber)) {
+                return car;
+            }
+        }
+        throw new CarNotFoundException("No car found with the plate number: " + plateNumber);
+    }
+
+    @Override
+    public void rentCar(String plateNumber, boolean rent) {
+        Car car = getCarByPlateNumber(plateNumber);
+        car.setIsRented(rent);
     }
 }
