@@ -25,12 +25,11 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car getCarByPlateNumber(String plateNumber) {
-        for (Car car : cars) {
-            if (car.getPlateNumber().equals(plateNumber)) {
-                return car;
-            }
-        }
-        throw new CarNotFoundException("No car found with the plate number: " + plateNumber);
+        return cars.stream()
+                .filter(car -> car.getPlateNumber().equals(plateNumber))
+                .findFirst()
+                .orElseThrow(() -> new CarNotFoundException("Could not find car with plate number " + plateNumber));
+
     }
 
     @Override
