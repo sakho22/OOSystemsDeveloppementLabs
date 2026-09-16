@@ -1,8 +1,7 @@
 package com.example.CarRental.web;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.*;
+import java.util.List;
 import com.example.CarRental.data.*;
 import com.example.CarRental.service.*;
 
@@ -26,9 +25,12 @@ public class CarWeb {
     }
 
     @PutMapping("/{plateNumber}")
-    public void rentCar(
+    public void rentOrGetBack(
             @PathVariable("plateNumber") String plateNumber,
-            @RequestParam(value = "rent", required = true) boolean rent) {
+            @RequestParam(value = "rent", required = true) boolean rent,
+            @RequestBody(required = false) Dates dates) {
+
         carService.rentCar(plateNumber, rent);
+
     }
 }

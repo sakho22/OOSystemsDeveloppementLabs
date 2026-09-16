@@ -1,40 +1,38 @@
 package com.example.CarRental.service;
 
-import com.example.CarRental.data.*;
+import com.example.CarRental.data.Car;
+import com.example.CarRental.data.CarRepository;
 import com.example.CarRental.exception.CarNotFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CarServiceImpl implements CarService {
-    public List<Car> cars = new ArrayList<>();
 
-    public CarServiceImpl() {
-        cars.add(new Car("A", "1", 1));
-        cars.add(new Car("B", "2", 2));
-        cars.add(new Car("C", "3", 3));
+    private final CarRepository carRepository;
+
+    @Autowired
+    public CarServiceImpl(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
     @Override
     public List<Car> getCars() {
-        return cars;
+        return carRepository.findByIsRentedFalse();
     }
 
     @Override
     public Car getCarByPlateNumber(String plateNumber) {
-        return cars.stream()
-                .filter(car -> car.getPlateNumber().equals(plateNumber))
-                .findFirst()
+        return carRepository.findById(plateNumber)
                 .orElseThrow(() -> new CarNotFoundException("Could not find car with plate number " + plateNumber));
-
     }
 
     @Override
     public void rentCar(String plateNumber, boolean rent) {
         Car car = getCarByPlateNumber(plateNumber);
         car.setIsRented(rent);
+        carRepository.save(car);
     }
 }

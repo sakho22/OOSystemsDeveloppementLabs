@@ -1,13 +1,12 @@
 package com.example.CarRental.service;
 
+import com.example.CarRental.data.Car;
 import java.util.List;
 
-import com.example.CarRental.data.*;;
-
 public interface CarService {
-    public List<Car> getCars();
+    List<Car> getCars();
 
-    public Car getCarByPlateNumber(String plateNumber);
+    Car getCarByPlateNumber(String plateNumber);
 
-    public void rentCar(String plateNumber, boolean rent);
+    void rentCar(String plateNumber, boolean rent);
 }
